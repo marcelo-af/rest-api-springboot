@@ -1,0 +1,12 @@
+
+A classe que tem @RestController 'e onde recebe as requisicoes http
+
+O @RestController tem que importar a biblioteca abaixo:
+
+import org.springframework.web.bind.annotation.RestController
+
+@RequestMapping 'e onde chama uma parte do endpoint tem que chamar a biblioteca:
+
+import org.springframework.web.bind.annotation.RequestMapping
+
+Geralmente dentro do controler coloca um ponto de injecao para se conectar com o banco de dados

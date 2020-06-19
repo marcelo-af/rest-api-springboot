@@ -1,0 +1,39 @@
+package com.produtos.apirest.resources;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.produtos.apirest.repository.ProdutoRepository;
+import com.produtos.apirest.models.Produto;
+
+@RestController
+@RequestMapping(value="/api")
+public class ProdutoResource {	
+	//A classe ProdutoResources foi criada para poder listar os dados do banco de dados, atraves da chamada rest
+	
+@Autowired
+ProdutoRepository produtoRepository;
+
+@GetMapping("/produtos")
+public List<Produto> listaProdutos(){
+
+	return produtoRepository.findAll();
+	//Criado o metodo listaProdutos onde pega os dados da classe produto e consulta 
+		//no banco de dados atraves do produtoRepository
+	
+}
+
+
+//Criando um metodo e uma URI(endpoint)para chamar apenas um produto do banco de dados
+@GetMapping("/produto/{id}")
+public Produto listarProdutoUnico(@PathVariable(value="id") long id) {
+	//@PathVariable é para passar uma variavel no metodo
+	return produtoRepository.findById(id);
+}
+
+}
