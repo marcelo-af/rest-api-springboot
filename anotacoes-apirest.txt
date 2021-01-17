@@ -10,3 +10,100 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestMapping
 
 Geralmente dentro do controler coloca um ponto de injecao para se conectar com o banco de dados
+
+Geralmente no model é onde coloca os campos da tabela. Toda vez que tiver o @Entity significa que utiliza dados de uma tabela.
+
+JpaRepository é para trazer comando já prontos para interagir com o banco de dados com: Delete, Save, FindBy, FindAll, entre outros.
+
+Geralmente no JpaRepository passa  a classe que foi definida com os campos do banco de dados ou seja a classe que tem o @Entity
+
+Ex: public interface ProdutoRepository extends JpaRepository<Produto, Long> 
+Produto é o nome da classe 
+Long é o tipo 
+
+
+*O application.properties é onde fica a configuração do banco de dados 
+*O comando (spring.jpa.hibernate.dll-auto = update) serve para atualizar automaticamente a tabela mas esse comando deve estar dentro do properties que realiza a configuração do banco de dados exemplo (application.properties)
+
+Geralmente onde tem o @RestController é a classe onde recebe as requisições HTTP
+
+O @Autowired serve para instanciar uma classe automaticamente
+
+
+**PARA TODO CONROLLER É NECESSÁRIO TER UM RESOURCE -> No Resource encontramos uma parte da URI/URL e no controller tem a chamada do metodo
+
+
+O @RequestBody significa que o argumento a ser salvo é passado no corpo do postman, ou seja traduzindo (corpo de requisição) 
+Exemplo: 
+@PostMapping("/produto") -> significa que no postman sera feita uma chamada post e terminara com a uri /produto
+public Produto salvaProduto(@RequestBody Produto produto){  
+return produtoRepository.save(produto);
+}
+-> @RequestBody irá pegar os dados da classe Produto para salvar
+-> A classe Produto foi instanciada dando vida ao objeto produto
+
+
+**No postman ao utilizar um metodo post deve colocar na aba Headers o Content-Type igual a application/json
+
+
+O @DeleteMapping é utilizado para deletar um determinado dado
+
+Exemplo do metodo delete
+@DeleteMapping("/produto")
+public void deletaProduto(@RequestBody Produto produto){
+produtoRepository.delete(produto);
+}
+
+
+Exemplo da uri do delete -> DELETE -> http://localhost:8080/api/produto
+*Produto a ser deletado -> lembrando que os dados do produto a ser deletado é passado no corpo(body) do postman
+{
+"id": 15,
+"nome": "teste Produto",
+"quantidade": 5,
+"valor": 0
+}
+
+
+O @PutMapping é utilizado para atualizar um produto 
+Exemplo de uri do PUT -> PUT -> http://localhost:8080/api/produto
+
+@PutMapping("/produto")
+public Produto atualizaProduto(@RequestBody Produto produto){
+return produtoRepository.save(produto);
+}
+Ele não vai salvar um novo produto pq no body do postman vai ser passado o id e quando ele encontrar esse id irá realizar a atualização.
+Dados a serem alterados no put do postman:
+{
+"id": 1,
+"nome": "Samsung s9",
+"quantidade": 1,
+"valor": 3999
+}
+
+
+**Geralmente no pom.xml é onde vem escrita as dependencias
+Dentro do pom.xml que está discriminada a dependencia do swagger
+<dependency>
+<grupoId>io.springfox</grupoId>
+<artifactId>springfox-swagger2</artifactId>
+<version>2.7.0</version>
+</dependency>
+<dependency>
+<grupoId>io.springfox</grupoId>
+<artifactId>springfox-swagger-ui</artifactId>
+<version>2.7.0</version>
+</dependency>
+
+
+O @Configuration é para o spring saber que é uma classe de configuração
+
+@CrossOrigin é utilizado para poder acessar todos os dominios da API (@CrossOrigin(origins="*")) 
+
+O @ApiOperation é utilizado para descrever o que um metodo faz
+@ApiOperation(value="Metodo para listar todos os produtos")
+
+
+Geralmente a Controller é onde recebe as requisições http e os metodos get, post, entre outros. A classe (ProdutoResource) é o controller dessa aplicação.
+
+Uma URI padrão pode ser criada atraves do @RequestMapping(value="/api") isso significa que semrpe depois do localhost ira ter o /api -> porque é uma uri padrao e foi determinada nessa api. Lembrando que isso é opcional. 

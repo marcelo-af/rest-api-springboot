@@ -22,7 +22,7 @@ import com.produtos.apirest.models.Produto;
 
 @RestController
 @RequestMapping(value="/api")
-//Anotação do titulo da Swagger @Api
+//O @Api é a anotação do titulo da Swagger @Api
 @Api(value="API REST Produtos")
 @CrossOrigin(origins="*")
 //O @CrossOrigin com o * indica que qualquer dominio pode acessar a api

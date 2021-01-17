@@ -1,12 +1,13 @@
 package com.produtos.apirest.config;
 
+import static springfox.documentation.builders.PathSelectors.regex;
+
 import java.util.ArrayList;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.RequestHandlerSelectors;
-import static springfox.documentation.builders.PathSelectors.regex;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.VendorExtension;
@@ -30,7 +31,7 @@ public class SwaggerConfig {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.produtos.apirest"))
-				.paths(regex("/api.*"))
+				.paths(regex("/api.*"))  //O regex mostra o caminho que ele pode acessar que foi criado no ProtudoResource
 				.build()
 				.apiInfo(metaInfo());
 		
@@ -56,4 +57,4 @@ public class SwaggerConfig {
 	
 	//Para acessar o Swagger (http://localhost:8080/swagger-ui.html)
 
-}
+} 
